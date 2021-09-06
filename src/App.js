@@ -1,25 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{useState} from 'react'
+import Data from "./Data"
 
-function App() {
+const App = () => {
+  const [state, setstate] = useState(0);
+  const {title, dates, duties, company} = Data[state];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <>
+     <section className="section">
+       <div className="title">
+         <h2>experience</h2>
+          <div className="underline"></div>
+       </div>
+       <div className="job-center">
+       <div className="btn-container">
+         {
+           Data.map((Val, index) => {
+             return(
+               <button 
+               key={Val.id} 
+               onClick={() => setstate(index)}
+               className={`btn-job ${index === state && 'active'}`}
+               >{Val.company}</button>
+             )
+           })
+         }
+       </div>
+        <article className="job-info">
+          <h3>{title}</h3>
+          <h4>{company}</h4>
+          <p className="job-dates">{dates}</p>
+          {
+            duties.map((duty, index) => {
+              return <div className="job-desc" key={index}>
+              <i class="fas fa-dot-circle"></i>
+              <p>{duty}</p>
+            </div>
+            })
+          }
+        </article>
+       </div>
+     </section>
+    </>
+  )
 }
 
-export default App;
+export default App
